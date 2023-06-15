@@ -1,5 +1,4 @@
 import os
-import argparse
 import csv
 import numpy
 import matplotlib
@@ -185,75 +184,32 @@ def draw_heatmap(gazepoints, dispsize, imagefile=None, alpha=0.5, savefilename=N
     return fig
 
 
-##################
-#     Parsing    #
-##################
-'''
-parser = argparse.ArgumentParser(description='Parameters required for processing.')
+def analyse_image(image_path, input_csv):
+    #input_path = "datatest.csv"
+    input_path = input_csv
+    display_width = 1440
+    display_height = 900
+    alpha = 0.6
+    output_name = "output"
+    #background_image = "examples/bg-image.png"
+    background_image = image_path
+    ngaussian = 200
+    sd = 33
 
-# required args
-parser.add_argument('input-path', type=str, help='path to the csv input')
-parser.add_argument('display-width', type=int, help='an integer representing the display width')
-parser.add_argument('display-height', type=int, help='an integer representing the display height')
+    with open(input_path) as f:
+        reader = csv.reader(f)
+        raw = list(reader)
 
-# optional args
-parser.add_argument('-a', '--alpha', type=float, default='0.5', required=False, help='alpha for the gaze overlay')
-parser.add_argument('-o', '--output-name', type=str, required=False, help='name for the output file')
-parser.add_argument('-b', '--background-image', type=str, default=None, required=False,
-                    help='path to the background image')
+        gaza_data = []
+        if len(raw[0]) == 2:
+            gaze_data = list(map(lambda q: (int(q[0]), int(q[1]), 1), raw))
+        else:
+            gaze_data = list(map(lambda q: (int(q[0]), int(q[1]), int(q[2])), raw))
 
-# advanced optional args
-parser.add_argument('-n', '--n-gaussian-matrix', type=int, default='200', required=False,
-                    help='width and height of gaussian matrix')
-parser.add_argument('-sd', '--standard-deviation', type=float, default=None, required=False,
-                    help='standard deviation of gaussian distribution')
-
-
-args = vars(parser.parse_args())
-
-input_path = args['input-path']
-display_width = args['display-width']
-display_height = args['display-height']
-alpha = args['alpha']
-output_name = args['output_name'] if args['output_name'] is not None else 'output'
-background_image = args['background_image']
-ngaussian = args['n_gaussian_matrix']
-sd = args['standard_deviation']
+        draw_heatmap(gaze_data, (display_width, display_height), alpha=alpha, savefilename=output_name,
+                     imagefile=background_image, gaussianwh=ngaussian, gaussiansd=sd)
 
 
-with open(input_path) as f:
-    reader = csv.reader(f)
-    raw = list(reader)
-
-    gaza_data = []
-    if len(raw[0]) == 2:
-        gaze_data = list(map(lambda q: (int(q[0]), int(q[1]), 1), raw))
-    else:
-        gaze_data = list(map(lambda q: (int(q[0]), int(q[1]), int(q[2])), raw))
-
-    draw_heatmap(gaze_data, (display_width, display_height), alpha=alpha, savefilename=output_name,
-                 imagefile=background_image, gaussianwh=ngaussian, gaussiansd=sd)
-'''
-
-input_path = "datatest.csv"
-display_width = 1440
-display_height = 900
-alpha = 0.6
-output_name = "output"
-background_image = "examples/bg-image.png"
-ngaussian = 200
-sd = 33
 
 
-with open(input_path) as f:
-    reader = csv.reader(f)
-    raw = list(reader)
-
-    gaza_data = []
-    if len(raw[0]) == 2:
-        gaze_data = list(map(lambda q: (int(q[0]), int(q[1]), 1), raw))
-    else:
-        gaze_data = list(map(lambda q: (int(q[0]), int(q[1]), int(q[2])), raw))
-
-    draw_heatmap(gaze_data, (display_width, display_height), alpha=alpha, savefilename=output_name, imagefile=background_image, gaussianwh=ngaussian, gaussiansd=sd)
-
+analyse_image("examples/bg-image.png", "datatest.csv")
