@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 import os
 import imageHandling
+import videoHandling
 
 csv_data = []
 video_data = []
@@ -17,10 +18,13 @@ def run():
        vid_path = video_data[0]
        print(csv_path)
        print(vid_path)
-       imageHandling.analyze_image(vid_path, csv_path)
+       videoHandling.read_video(vid_path)
+       videoHandling.analyze_frames()
+       videoHandling.clean_dir()
+       #imageHandling.analyze_image(vid_path, csv_path)
 
-       if imageHandling.is_complete():
-           exit()
+       #if imageHandling.is_complete():
+           #exit()
 
 
 def open_csv():
@@ -33,8 +37,8 @@ def open_csv():
 
 
 def open_vid():
-    #types = [('video files', '*.mp4')]
-    types = [('image files', '*.png')]
+    types = [('video files', '*.mp4')]
+    #types = [('image files', '*.png')]
     file = filedialog.askopenfile(mode='r', filetypes=types)
     if file:
         vid_path = str(os.path.abspath(file.name))
