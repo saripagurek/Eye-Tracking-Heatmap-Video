@@ -3,7 +3,7 @@ import random
 
 rows = []
 
-for i in range(1400):
+for i in range(5):
     col = random.randint(0, 1400)
     row = random.randint(0, 600)
     rows.append([col, row])
