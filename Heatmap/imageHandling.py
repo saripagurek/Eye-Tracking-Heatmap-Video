@@ -3,6 +3,7 @@ import csv
 import numpy
 import matplotlib
 from matplotlib import pyplot, image
+from PIL import Image
 
 finished = False
 
@@ -186,13 +187,10 @@ def draw_heatmap(gazepoints, dispsize, imagefile=None, alpha=0.5, savefilename=N
 
 
 def analyze_image(image_path, input_csv):
-    #input_path = "datatest.csv"
     input_path = input_csv
-    display_width = 1440
-    display_height = 900
+    display_width, display_height = get_specs(image_path)
     alpha = 0.6
     output_name = "output"
-    #background_image = "examples/bg-image.png"
     background_image = image_path
     ngaussian = 200
     sd = 33
@@ -213,11 +211,16 @@ def analyze_image(image_path, input_csv):
     finished = True
 
 
-
-
-#analyze_image("examples/bg-image.png", "datatest.csv")
-
-
 def is_complete():
     global finished
     return finished
+
+
+def get_specs(image_path):
+    img = Image.open(image_path)
+    width = img.width
+    height = img.height
+    return width, height
+
+
+#analyze_image("examples/bg-image.png", "datatest.csv")
