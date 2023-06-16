@@ -56,10 +56,14 @@ def clean_dir():
 def analyze_frames(csv_path):
     frame_size = imageHandling.get_specs("temp/frame1.png")
 
-    out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 12, frame_size)
+    out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 24, frame_size)
 
     for filename in sorted(glob.glob('temp/*.png'), key=os.path.getmtime):
-        img = cv2.imread(filename)
+        name = filename[5:-4]
+        imageHandling.analyze_image(filename, csv_path, name)
+
+    for f in sorted(glob.glob('*.png'), key=os.path.getmtime):
+        img = cv2.imread(f)
         out.write(img)
 
     out.release()

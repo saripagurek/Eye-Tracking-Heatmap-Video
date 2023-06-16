@@ -60,6 +60,7 @@ def draw_display(dispsize, imagefile=None):
     # plot display
     ax.axis([0, dispsize[0], 0, dispsize[1]])
     ax.imshow(screen)  # , origin='upper')
+    matplotlib.pyplot.close()
 
     return fig, ax
 
@@ -186,11 +187,11 @@ def draw_heatmap(gazepoints, dispsize, imagefile=None, alpha=0.5, savefilename=N
     return fig
 
 
-def analyze_image(image_path, input_csv):
+def analyze_image(image_path, input_csv, name):
     input_path = input_csv
     display_width, display_height = get_specs(image_path)
     alpha = 0.6
-    output_name = "output"
+    output_name = name
     background_image = image_path
     ngaussian = 200
     sd = 33
