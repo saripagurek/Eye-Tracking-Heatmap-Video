@@ -26,6 +26,10 @@ def read_video(vid_path):
             cv2.imwrite(name.format(count), frame)
             #optional resizing
             '''
+            cv2.imwrite(name.format(count), frame)
+            count += 5
+            cap.set(cv2.CAP_PROP_POS_FRAMES, count)
+            
                 try:
                 frame = cv2.resize(frame, (540, 380), fx=0, fy=0, interpolation=cv2.INTER_CUBIC)
             except:
@@ -33,7 +37,7 @@ def read_video(vid_path):
             '''
             # Display the resulting frame
             cv2.imshow('Frame', frame)
-            count += 5
+            count += 2
             cap.set(cv2.CAP_PROP_POS_FRAMES, count)
 
             # define q as the exit button
@@ -49,12 +53,12 @@ def clean_dir():
     shutil.rmtree(temp_dir)
 
 
-def analyze_frames():
+def analyze_frames(csv_path):
     frame_size = imageHandling.get_specs("temp/frame1.png")
 
-    out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 5, frame_size)
+    out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 12, frame_size)
 
-    for filename in glob.glob('temp/*.png'):
+    for filename in sorted(glob.glob('temp/*.png'), key=os.path.getmtime):
         img = cv2.imread(filename)
         out.write(img)
 
