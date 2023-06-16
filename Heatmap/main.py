@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 import os
+import imageHandling
 
 csv_data = []
 video_data = []
@@ -11,8 +12,15 @@ win.geometry("750x550")
 win.title("Eye Tracking Heatmap")
 
 def run():
-   print(csv_data)
-   print(video_data)
+   if (len(csv_data) >= 1) and (len(video_data) >= 1):
+       csv_path = csv_data[0]
+       vid_path = video_data[0]
+       print(csv_path)
+       print(vid_path)
+       imageHandling.analyze_image(vid_path, csv_path)
+
+       if imageHandling.is_complete():
+           exit()
 
 
 def open_csv():
@@ -25,7 +33,8 @@ def open_csv():
 
 
 def open_vid():
-    types = [('video files', '*.mp4')]
+    #types = [('video files', '*.mp4')]
+    types = [('image files', '*.png')]
     file = filedialog.askopenfile(mode='r', filetypes=types)
     if file:
         vid_path = str(os.path.abspath(file.name))

@@ -4,6 +4,7 @@ import numpy
 import matplotlib
 from matplotlib import pyplot, image
 
+finished = False
 
 def draw_display(dispsize, imagefile=None):
     """Returns a matplotlib.pyplot Figure and its axes, with a size of
@@ -195,6 +196,7 @@ def analyze_image(image_path, input_csv):
     background_image = image_path
     ngaussian = 200
     sd = 33
+    global finished
 
     with open(input_path) as f:
         reader = csv.reader(f)
@@ -208,8 +210,14 @@ def analyze_image(image_path, input_csv):
 
         draw_heatmap(gaze_data, (display_width, display_height), alpha=alpha, savefilename=output_name,
                      imagefile=background_image, gaussianwh=ngaussian, gaussiansd=sd)
+    finished = True
 
 
 
 
-analyze_image("examples/bg-image.png", "datatest.csv")
+#analyze_image("examples/bg-image.png", "datatest.csv")
+
+
+def is_complete():
+    global finished
+    return finished
