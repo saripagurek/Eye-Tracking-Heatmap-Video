@@ -19,6 +19,7 @@ def run():
        print(csv_path)
        print(vid_path)
        videoHandling.read_video(vid_path)
+       print(videoHandling.get_fps())
        videoHandling.analyze_frames(csv_path)
        videoHandling.clean_dir()
 

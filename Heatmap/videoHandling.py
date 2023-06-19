@@ -9,11 +9,15 @@ cwd = os.getcwd()
 temp_dir = "" + cwd +"/temp"
 os.mkdir(temp_dir)
 
+fps = 0
+
 
 def read_video(vid_path):
+    global fps
     # Creating a VideoCapture object to read the video
     cap = cv2.VideoCapture(vid_path)
     count = 1
+    fps = cap.get(cv2.CAP_PROP_FPS)
 
     # Loop until the end of the video
     while (cap.isOpened()):
@@ -52,6 +56,11 @@ def read_video(vid_path):
 def clean_dir():
     shutil.rmtree(temp_dir)
 
+
+def get_fps():
+    global fps
+    fps = int(fps)
+    return fps
 
 def analyze_frames(csv_path):
     frame_size = imageHandling.get_specs("temp/frame1.png")
