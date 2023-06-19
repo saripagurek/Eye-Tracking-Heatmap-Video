@@ -6,14 +6,16 @@ import imageHandling
 
 
 cwd = os.getcwd()
-temp_dir = "" + cwd +"/temp"
+temp_dir = "" + cwd +"/temp_frames"
 os.mkdir(temp_dir)
 
 fps = 0
+count = 1
 
 
 def read_video(vid_path):
     global fps
+    global count
     # Creating a VideoCapture object to read the video
     cap = cv2.VideoCapture(vid_path)
     count = 1
@@ -41,7 +43,7 @@ def read_video(vid_path):
             '''
             # Display the resulting frame
             cv2.imshow('Frame', frame)
-            count += 2
+            count += 1
             cap.set(cv2.CAP_PROP_POS_FRAMES, count)
 
             # define q as the exit button
@@ -62,10 +64,16 @@ def get_fps():
     fps = int(fps)
     return fps
 
+
+def get_num_frames():
+    global count
+    return count
+
+
 def analyze_frames(csv_path):
     frame_size = imageHandling.get_specs("temp/frame1.png")
 
-    out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 24, frame_size)
+    out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, frame_size)
 
     for filename in sorted(glob.glob('temp/*.png'), key=os.path.getmtime):
         name = filename[5:-4]
