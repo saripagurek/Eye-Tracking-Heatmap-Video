@@ -47,7 +47,7 @@ def interpolate(dict_data, fps):
             for s in range(steps):
                 new_point_x = prev_x + slope_step_x
                 new_point_y = prev_y + slope_step_y
-                saccades.append([start, new_point_x, new_point_y, "NEW"])
+                saccades.append([start, new_point_x, new_point_y])
                 prev_x = new_point_x
                 prev_y = new_point_y
             end = dict_data["CURRENT_SAC_END_TIME"][i]
@@ -60,8 +60,8 @@ def interpolate(dict_data, fps):
     #sort all points by time stamp, ie. start time
     all_points.sort(key=lambda x: x[0])
     all_points.pop(0)
-    #while len(all_points) > videoHandling.get_num_frames():
-    while len(all_points) > 948:
+    while len(all_points) > videoHandling.get_num_frames():
+    #while len(all_points) > 948:
         all_points.pop()
 
     for point in all_points:
@@ -118,42 +118,20 @@ def set_up(file_list):
     file_data = []
     for f in file_list:
         file_data.append(organize(f))
-    #num_frames = videoHandling.get_num_frames()
-    num_frames = 20
-    for x in range(num_frames):
+    num_frames = videoHandling.get_num_frames() - 1
+    #num_frames = 947
+    for x in range(1, num_frames + 1):
         csv_name = "" + temp_dir2 + "/frame" + str(x)
         with open(csv_name, 'w', newline='') as file:
             writer = csv.writer(file)
             for i in range(len(file_data)):
                 row = file_data[i][x]
-                writer.writerow(row)
+                newrow = []
+                for val in row:
+                    new = int(float(val))
+                    newrow.append(new)
+                writer.writerow(newrow)
 
 
 
-set_up(['examples/complete_input.csv', 'examples/complete_input.csv', 'examples/complete_input.csv'])
-
-'''
-testlist = ['test1.csv', 'test2.csv', 'test3.csv']
-
-def set_up(file_list):
-    data = []
-
-    for f in file_list:
-        with open(f, 'r') as csvfile:
-            datareader = list(csv.reader(csvfile))
-            data.append(datareader)
-
-    #num_frames = videoHandling.get_num_frames()
-    num_frames = 20
-    for x in range(num_frames):
-        csv_name = "" + temp_dir2 + "/frame" + str(x)
-        with open(csv_name, 'w', newline='') as file:
-            writer = csv.writer(file)
-            for f in data:
-                row = f[x]
-                writer.writerow(row)
-
-
-#test(testlist)
-
-'''
+set_up(['examples/complete_input.csv'])

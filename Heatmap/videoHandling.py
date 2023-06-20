@@ -5,13 +5,13 @@ import glob
 import imageHandling
 
 
+cwd = os.getcwd()
+temp_dir = "" + cwd +"/temp"
 fps = 0
 count = 1
 
 
 def set_up():
-    cwd = os.getcwd()
-    temp_dir = "" + cwd +"/temp_frames"
     os.mkdir(temp_dir)
 
 
@@ -59,6 +59,9 @@ def read_video(vid_path):
 
 def clean_dir():
     shutil.rmtree(temp_dir)
+    other = "" + cwd + "/temp_data"
+    shutil.rmtree(temp_dir)
+    os.remove(file) for file in os.listdir(cwd) if file.endswith('.png')
 
 
 def get_fps():
@@ -73,16 +76,17 @@ def get_num_frames():
 
 
 def analyze_frames(csv_path):
-    frame_size = imageHandling.get_specs("temp_frames/frame1.png")
+    frame_size = imageHandling.get_specs("temp/frame1.png")
 
     out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, frame_size)
 
     for filename in sorted(glob.glob('temp/*.png'), key=os.path.getmtime):
         name = filename[5:-4]
+        csv_path = "" + cwd + "/temp_data/" + name
         imageHandling.analyze_image(filename, csv_path, name)
-
     for f in sorted(glob.glob('*.png'), key=os.path.getmtime):
         img = cv2.imread(f)
         out.write(img)
-
     out.release()
+
+
