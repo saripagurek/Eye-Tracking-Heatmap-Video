@@ -17,11 +17,11 @@ def run():
    if (len(csv_data) >= 1) and (len(video_data) >= 1):
        csv_path = csv_data[0]
        vid_path = video_data[0]
-       print(csv_path)
-       print(vid_path)
+       #print(csv_path)
+       #print(vid_path)
        videoHandling.set_up()
        videoHandling.read_video(vid_path)
-       preprocessing.set_up([csv_path])
+       preprocessing.set_up(csv_data)
        videoHandling.analyze_frames(csv_path)
        print("num frames: " + str(videoHandling.get_num_frames()))
        videoHandling.clean_dir()

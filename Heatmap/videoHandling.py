@@ -60,8 +60,11 @@ def read_video(vid_path):
 def clean_dir():
     shutil.rmtree(temp_dir)
     other = "" + cwd + "/temp_data"
-    shutil.rmtree(temp_dir)
-    os.remove(file) for file in os.listdir(cwd) if file.endswith('.png')
+    shutil.rmtree(other)
+
+    for file in os.listdir(cwd):
+        if file.endswith('.png'):
+            os.remove(file)
 
 
 def get_fps():
