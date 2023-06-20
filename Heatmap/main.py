@@ -18,8 +18,10 @@ def run():
        vid_path = video_data[0]
        print(csv_path)
        print(vid_path)
+       videoHandling.set_up()
        videoHandling.read_video(vid_path)
        videoHandling.analyze_frames(csv_path)
+       print("num frames: " + str(videoHandling.get_num_frames()))
        videoHandling.clean_dir()
 
 

@@ -5,12 +5,14 @@ import glob
 import imageHandling
 
 
-cwd = os.getcwd()
-temp_dir = "" + cwd +"/temp_frames"
-os.mkdir(temp_dir)
-
 fps = 0
 count = 1
+
+
+def set_up():
+    cwd = os.getcwd()
+    temp_dir = "" + cwd +"/temp_frames"
+    os.mkdir(temp_dir)
 
 
 def read_video(vid_path):
@@ -71,7 +73,7 @@ def get_num_frames():
 
 
 def analyze_frames(csv_path):
-    frame_size = imageHandling.get_specs("temp/frame1.png")
+    frame_size = imageHandling.get_specs("temp_frames/frame1.png")
 
     out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, frame_size)
 
