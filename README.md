@@ -13,6 +13,6 @@ To run:
 2. Use the tkinter GUI to import one or more csv data files and one mp4 video file. The input data must be of the format:
  ![Example CSV Image](exampleCSV.png "Example CSV")
 ** Note that the headings DO matter **
-4. Click 'Run'. The imported video will play as the program reads in the its individual frames. When the video playbsck window closes, you are free to exit the program.
+4. Click 'Run'. The imported video will play as the program reads in the its individual frames. When the video playback window closes, you are free to exit the program.
 5. The resulting video named 'output.mp4' will be located in the project directory.
 
