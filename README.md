@@ -7,6 +7,7 @@ Dependencies:
 - matplotlib
 - tkinter
 - cv2 (opencv)
+- pillow
 
 To run: 
 1. From project directory, run main.py.
