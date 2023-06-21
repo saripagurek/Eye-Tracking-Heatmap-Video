@@ -22,7 +22,7 @@ def run():
        videoHandling.set_up()
        videoHandling.read_video(vid_path)
        preprocessing.set_up(csv_data)
-       videoHandling.analyze_frames(csv_path)
+       videoHandling.analyze_frames()
        print("num frames: " + str(videoHandling.get_num_frames()))
        videoHandling.clean_dir()
 

@@ -78,7 +78,7 @@ def get_num_frames():
     return count
 
 
-def analyze_frames(csv_path):
+def analyze_frames():
     frame_size = imageHandling.get_specs("temp/frame1.png")
 
     out = cv2.VideoWriter('output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, frame_size)

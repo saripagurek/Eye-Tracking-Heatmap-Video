@@ -134,4 +134,4 @@ def set_up(file_list):
 
 
 
-set_up(['examples/complete_input.csv'])
+#set_up(['examples/complete_input.csv'])
