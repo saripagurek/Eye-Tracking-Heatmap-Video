@@ -4,10 +4,15 @@ Python program to overlay heatmap of eye tracking data on a video.
 
 Dependencies:
 - numpy
+  $ pip install numpy
 - matplotlib
+  $ pip install matplotlib
 - tkinter
+  $ pip install tk
 - cv2 (opencv)
+  $ pip install opencv-python
 - pillow
+  $ pip install Pillow
 
 To run: 
 1. From project directory, run main.py.
