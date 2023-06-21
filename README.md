@@ -15,7 +15,7 @@ Dependencies:
   $ pip install Pillow
 
 To run: 
-1. From project directory, run main.py.
+1. From project directory, run main.py $ python main.py
 2. Use the tkinter GUI to import one or more csv data files and one mp4 video file. The input data must be of the format:
  ![Example CSV Image](exampleCSV.png "Example CSV")
 ** Note that the headings DO matter **
